@@ -1,72 +1,37 @@
 #ifndef CCOLLIDER_H
 #define CCOLLIDER_H
 #include "SCollider.h"
+#include <math.h>
 
-template<class T1, class T2> bool Collision(T1& a, T2& b)
+ bool Collision(SDot* a, int sza, SDot* b, int szb)
 {
-	if (T1 as SColliderRect)
-		switch T2
+	
+	if (a != nullptr && b != nullptr)
+		if (sza > 3 && szb > 3)
 		{
-		case SColliderRect:
-			return CollisionRectRect(a, b);
-		case SColliderCir:
-			return CollisionRectCir(a, b);
-		case SColliderTri:
-			return CollisionRectTri(a, b);
-		}
-	else if (T1 as SColliderTri)
-		switch T2
-		{
-		case SColliderRect:
-			return CollisionRectTri(b, a);
-		case SColliderCir:
-			return CollisionTriCir(a, b);
-		case SColliderTri:
-			return CollisionTriTri(a, b);
-		}
-	else if (T1 as SColliderCir)
-		switch T2
-		{
-		case SColliderRect:
-			return CollisionRectCir(b, a);
-		case SColliderCir:
-			return CollisionCirCir(a, b);
-		case SColliderTri:
-			return CollisionTriCir(b, a);
+			//Calculate the normal (perpendicular) vector from its side
+			SDot normal;
+			normal.x = a[1].x - a[0].x ;
+			normal.y = a[1].y - a[0].y;
+
+			//Normalize it
+			float magnitude = sqrt( powf(normal.x, 2.0f) + powf(normal.y, 2.0f));
+			if (magnitude != 0)
+			{
+				normal.x *= 1 / magnitude;
+				normal.y *= 1 / magnitude;
+			}
+
+			//Project every point on the first polygon onto the axis
+			//https://www.sevenson.com.au/programming/sat/
+			//Project every point on the second polygon onto the axis
+
 		}
 
 	return false;
 }
 
-bool CollisionRectTri(SColliderRect& rect, SColliderTri& tri)
-{
-	return false;
-}
 
-bool CollisionRectRect(SColliderRect& rect1, SColliderRect& rect2)
-{
-	return false;
-}
-
-bool CollisionRectCir(SColliderRect& rect, SColliderCir& circle)
-{
-	return false;
-}
-
-bool CollisionTriCir(SColliderRect& tri, SColliderCir& circle)
-{
-	return false;
-}
-
-bool CollisionTriTri(SColliderRect& tri1, SColliderCir& tri2)
-{
-	return false;
-}
-
-bool CollisionCirCir(SColliderRect& cir1, SColliderCir& cir2)
-{
-	return false;
-}
 
 
 

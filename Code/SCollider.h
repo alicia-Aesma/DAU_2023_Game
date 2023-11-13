@@ -1,20 +1,11 @@
 #ifndef SCOLLIDER_H
 #define SCOLLIDER_H
 
-struct SColliderRect 
+struct SDot
 {
-	float dot[4];
+	float x;
+	float y;
 };
 
-struct SColliderCir 
-{
-	float center;
-	float radius;
-};
-
-struct SColliderTri 
-{
-	float dot[3];
-};
 
 #endif
