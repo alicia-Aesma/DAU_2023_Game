@@ -1,5 +1,6 @@
 #ifndef CCOLLIDER_H
 #define CCOLLIDER_H
+#include "SCollider.h"
 
 template<class T1, class T2> bool Collision(T1& a, T2& b)
 {
