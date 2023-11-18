@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CBackground.h"
+#include "App/app.h"
 #include <string>
 
 void CBackground::DisplayBackground()
@@ -12,12 +13,16 @@ void CBackground::DisplayBackground()
 		float y;
 		m_layer[i]->GetPosition(x, y);
 
-		//moves the x position of the layer to the left
-		x += -1 * m_currentSpeed * m_layerSpeed[i];
+		if (!m_isPause)
+		{
 
-		//if the layer leaves the screen completely, positions it at the position of the layer following it
-		if (x <= -1.0f * APP_INIT_WINDOW_WIDTH / 2.0f)
-			x += APP_INIT_WINDOW_WIDTH;
+			//moves the x position of the layer to the left
+			x += -1 * m_currentSpeed * m_layerSpeed[i];
+
+			//if the layer leaves the screen completely, positions it at the position of the layer following it
+			if (x <= -1.0f * APP_INIT_WINDOW_WIDTH / 2.0f)
+				x += APP_INIT_WINDOW_WIDTH;
+		}
 
 		//displays the layer
 		m_layer[i]->SetPosition(x, y);
@@ -40,7 +45,7 @@ void CBackground::UpdateBackground(float deltaTime)
 
 CBackground::CBackground()
 {
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < NB_BACKGROUND_LAYER; i++)
 	{
 		std::string s = "..//Asset//Sprites//Background//Layer_" + std::to_string(i) + ".png";
 		char* path = new char[s.length() + 1];
@@ -51,7 +56,7 @@ CBackground::CBackground()
 	}
 
 	m_isPause = false;
-	m_referenceSpeed = 1;
+	m_referenceSpeed = 0.12f;
 	m_currentSpeed = m_referenceSpeed;
 
 	m_layerSpeed[0] = 1;
@@ -68,9 +73,10 @@ CBackground::CBackground()
 	m_layerSpeed[11] = 0;
 }
 
+
 CBackground::~CBackground()
 {
-	//why do my deletes crash? :,(
-	//delete[] m_layer;
-	//delete m_layerSpeed;
+	if (m_layer != nullptr)
+		for (int i = 0; i < NB_BACKGROUND_LAYER; i++)
+			delete m_layer[i];
 }

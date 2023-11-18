@@ -1,14 +1,14 @@
 #ifndef CBACKGROUND_H
 #define CBACKGROUND_H
 
-#include "App/app.h"
+#define NB_BACKGROUND_LAYER 12
+class CSimpleSprite;
 
 class CBackground
 {
 private :
-	//CSimpleSprite m_layer[12];
-	CSimpleSprite* m_layer[12];
-	float m_layerSpeed[12];
+	CSimpleSprite* m_layer[NB_BACKGROUND_LAYER];
+	float m_layerSpeed[NB_BACKGROUND_LAYER];
 	bool m_isPause;
 	float m_referenceSpeed;
 	float m_currentSpeed;
