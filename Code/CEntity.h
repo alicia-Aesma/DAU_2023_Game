@@ -20,6 +20,8 @@ public :
 	~CEntity();
 	void DisplayEntity();
 	void UpdateEntity(float deltaTime);
+	EAnimation* GetStateAnim();
+	void SetStateAnime(EAnimation animation);
 
 
 };

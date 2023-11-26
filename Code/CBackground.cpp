@@ -55,7 +55,7 @@ CBackground::CBackground()
 
 	}
 
-	m_isPause = false;
+	m_isPause = true;
 	m_referenceSpeed = 0.12f;
 	m_currentSpeed = m_referenceSpeed;
 

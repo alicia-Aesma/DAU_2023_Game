@@ -16,6 +16,8 @@ public :
 	~CPlayer();
 	void DisplayPlayer();
 	void UpdatePlayer(float deltaTime);
+	EAnimation* GetStateAnim2();
+	void SetStateAnime2(EAnimation animation);
 
 };
 

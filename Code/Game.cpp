@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "CBackground.h"
 #include "CPlayer.h"
+#include "EGameState.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
@@ -26,7 +27,9 @@ GameData gameData;
 void Init()
 {
 	gameData.GetInstance()->m_background = new CBackground();
-	gameData.GetInstance()->m_player = new CPlayer(50, "..//Asset//Sprites//Skeleton_Warrior//Walk.png","..//Asset//Sprites//Skeleton_Spearman//Walk.png", 7, 1, 0.2f);
+	gameData.GetInstance()->m_player = new CPlayer(50, "..//Asset//Sprites//Skeleton_Warrior//Warrior.png","..//Asset//Sprites//Skeleton_Spearman//Spearman.png", 7, 5, 0.2f);
+	gameData.GetInstance()->m_gameState = new EGameState();
+	*gameData.GetInstance()->m_gameState = MENU;
 }
 
 //------------------------------------------------------------------------
