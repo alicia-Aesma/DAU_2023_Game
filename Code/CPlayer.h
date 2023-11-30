@@ -2,8 +2,7 @@
 #define  CPLAYER_H
 
 #include "CEntity.h"
-#include "EAnimation.h"
-#include "App/app.h"
+
 
 class CPlayer : public CEntity
 {

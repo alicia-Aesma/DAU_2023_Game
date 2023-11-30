@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "CPlayer.h"
+#include "App/app.h"
+#include "EAnimation.h"
 
 CPlayer::CPlayer(int maxHp, char* spritePath1, char* spritePath2, int spriteColumns, int spriteRows, float speed)
 {
@@ -10,7 +12,7 @@ CPlayer::CPlayer(int maxHp, char* spritePath1, char* spritePath2, int spriteColu
 	*m_stateAnim = IDLE;
 
 	m_sprite = InitSprite(spritePath1, spriteColumns, spriteRows,speed);
-	m_sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2, HEIGHT_FROM_GROUND + m_sprite->GetHeight() / 2.0f);
+	m_sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, HEIGHT_FROM_GROUND + m_sprite->GetHeight() / 2.0f);
 
 	m_sprite->SetAnimation(*m_stateAnim);
 
@@ -18,7 +20,7 @@ CPlayer::CPlayer(int maxHp, char* spritePath1, char* spritePath2, int spriteColu
 	*m_stateAnim2 = IDLE;
 
 	m_sprite2 = InitSprite(spritePath2, spriteColumns, spriteRows,speed);
-	m_sprite2->SetPosition(APP_INIT_WINDOW_WIDTH / 2 - m_sprite2->GetWidth() / 2.0f, HEIGHT_FROM_GROUND + m_sprite2->GetHeight() / 2.0f);
+	m_sprite2->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f - m_sprite2->GetWidth() / 2.0f, HEIGHT_FROM_GROUND + m_sprite2->GetHeight() / 2.0f);
 
 	m_sprite2->SetAnimation(*m_stateAnim2);
 

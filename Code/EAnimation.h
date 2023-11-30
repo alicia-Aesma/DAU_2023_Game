@@ -6,8 +6,8 @@ enum EAnimation
 	RUN,
 	IDLE,
 	DEAD,
-	HURT,
 	ACTION,
+	HURT,
 	JUMP,
 	COUNT,
 };

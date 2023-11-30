@@ -2,6 +2,7 @@
 #include "CBackground.h"
 #include "App/app.h"
 #include <string>
+#include "App/AppSettings.h"
 
 void CBackground::DisplayBackground()
 {

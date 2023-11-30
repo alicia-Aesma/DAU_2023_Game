@@ -5,9 +5,10 @@ enum EGameState
 {
 
 MENU,
-GAME,
-DEATHMENU
-
+DEATHMENU,
+INGAME,
+PAUSE,
 };
+
 
 #endif

@@ -6,6 +6,7 @@
 #include "CBackground.h"
 #include "CPlayer.h"
 #include "EGameState.h"
+#include "CMenuStart.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
@@ -16,8 +17,7 @@
 //------------------------------------------------------------------------
 // Example data....
 //------------------------------------------------------------------------
-GameData gameData;
-
+GameData* gameData = gameData->GetInstance();
 
 //------------------------------------------------------------------------
 
@@ -26,10 +26,7 @@ GameData gameData;
 //------------------------------------------------------------------------
 void Init()
 {
-	gameData.GetInstance()->m_background = new CBackground();
-	gameData.GetInstance()->m_player = new CPlayer(50, "..//Asset//Sprites//Skeleton_Warrior//Warrior.png","..//Asset//Sprites//Skeleton_Spearman//Spearman.png", 7, 5, 0.2f);
-	gameData.GetInstance()->m_gameState = new EGameState();
-	*gameData.GetInstance()->m_gameState = MENU;
+	gameData->Init();
 }
 
 //------------------------------------------------------------------------
@@ -38,8 +35,9 @@ void Init()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
-	gameData.GetInstance()->m_background->UpdateBackground(deltaTime);
-	gameData.GetInstance()->m_player->UpdatePlayer(deltaTime);
+	gameData->Update();
+	gameData->m_background->UpdateBackground(deltaTime);
+	gameData->m_player->UpdatePlayer(deltaTime);
 
 
 }
@@ -50,8 +48,24 @@ void Update(float deltaTime)
 //------------------------------------------------------------------------
 void Render()
 {	
-	gameData.GetInstance()->m_background->DisplayBackground();
-	gameData.GetInstance()->m_player->DisplayPlayer();
+	gameData->m_background->DisplayBackground();
+	gameData->m_player->DisplayPlayer();
+
+	switch (*gameData->m_gameState)
+	{
+	case MENU :
+		gameData->m_menuStart->Display();
+		break;
+	case INGAME : 
+		break;
+	default:
+		break;
+	}
+
+	if (App::IsKeyPressed(VK_RBUTTON))
+	{
+		*gameData->m_gameState = INGAME;
+	}
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
@@ -59,6 +73,7 @@ void Render()
 //------------------------------------------------------------------------
 void Shutdown()
 {	
-	gameData.GetInstance()->m_background->~CBackground();
-	gameData.GetInstance()->m_player->~CPlayer();
+	gameData->m_background->~CBackground();
+	gameData->m_player->~CPlayer();
+	gameData->~GameData();
 }
