@@ -4,12 +4,11 @@
 #include "EGameState.h"
 #include "App/app.h"
 
-CButton::CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, EGameState gameState)
+CButton::CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOnclick onclick)
 {
 	m_sprite = sprite;
 	m_overlapSprite = overlapSprite;
-	m_gameState = new EGameState();
-	*m_gameState = gameState;
+	m_onClick = onclick;
 
 }
 
@@ -20,12 +19,23 @@ CButton::~CButton()
 
 	if (m_overlapSprite != nullptr)
 		delete m_overlapSprite;
-
-	if (m_gameState != nullptr)
-		delete m_gameState;
 }
 
 void CButton::Display()
+{
+	if (MouseIsOnInteractible())
+		m_overlapSprite->Draw();
+	else
+		m_sprite->Draw();
+}
+
+void CButton::OnClick()
+{
+	if (MouseIsOnInteractible())
+		m_onClick();
+}
+
+bool CButton::MouseIsOnInteractible()
 {
 	float mousePosX;
 	float mousePosY;
@@ -37,14 +47,11 @@ void CButton::Display()
 
 	if (mousePosX > buttonPosX - m_sprite->GetWidth() / 2.0f && mousePosX < buttonPosX + m_sprite->GetWidth() / 2.0f
 		&& mousePosY > buttonPosY - m_sprite->GetHeight() / 2.0f && mousePosY < buttonPosY + m_sprite->GetHeight() / 2.0f)
-		m_overlapSprite->Draw();
+		return true;
 	else
-		m_sprite->Draw();
+		return false;
 }
 
-void CButton::onMouseClick()
-{
-	GameData gameData;
-	*gameData.GetInstance()->m_gameState = *(this->m_gameState);
 
-}
+
+

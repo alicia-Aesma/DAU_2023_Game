@@ -38,6 +38,20 @@ void CPlayer::UpdatePlayer(float deltaTime)
 {
 	UpdateEntity(deltaTime);
 	m_sprite2->Update(deltaTime);
+	m_sprite2->SetAnimation(*m_stateAnim2);
+	m_sprite->SetAnimation(*m_stateAnim);
+
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_A, true))
+	{
+		float x2;
+		float y2;
+		float x;
+		float y;
+		m_sprite2->GetPosition(x2, y2);
+		m_sprite->GetPosition(x, y);
+		m_sprite->SetPosition(x2, y2);
+		m_sprite2->SetPosition(x, y);
+	}
 }
 
 EAnimation* CPlayer::GetStateAnim2()

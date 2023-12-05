@@ -1,6 +1,6 @@
 #ifndef CCOLLIDER_H
 #define CCOLLIDER_H
-#include "FCollider.h"
+#include "FDot.h"
 #include <math.h>
 
  bool Collision(FDot* a, int sza, FDot* b, int szb)

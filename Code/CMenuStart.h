@@ -12,6 +12,7 @@ public :
 	CMenuStart();
 	~CMenuStart();
 	void Display();
+	void Input();
 
 private :
 

@@ -7,6 +7,8 @@
 #include "CPlayer.h"
 #include "EGameState.h"
 #include "CMenuStart.h"
+#include "Onclick.h"
+#include "EAnimation.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
@@ -35,10 +37,46 @@ void Init()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
+	switch (*gameData->m_gameState)
+	{
+	case MENU:
+		gameData->m_menuStart->Input();
+		break;
+	case INGAME:
+		//gameData->m_background->SetPause(false);
+		//gameData->m_player->SetStateAnime(RUN);
+		//gameData->m_player->SetStateAnime2(RUN);
+		break;
+	default:
+		break;
+	}
+
 	gameData->Update();
 	gameData->m_background->UpdateBackground(deltaTime);
 	gameData->m_player->UpdatePlayer(deltaTime);
 
+
+	//TEST ANIMATION CODE
+	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_A, true))
+	//{
+	//	gameData->m_player->SetStateAnime(ACTION);
+	//	gameData->m_player->SetStateAnime2(ACTION);
+	//}
+	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
+	//{
+	//	gameData->m_player->SetStateAnime(DEAD);
+	//	gameData->m_player->SetStateAnime2(DEAD);
+	//}
+	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_X, true))
+	//{
+	//	gameData->m_player->SetStateAnime(HURT);
+	//	gameData->m_player->SetStateAnime2(HURT);
+	//}
+	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_Y, true))
+	//{
+	//	gameData->m_player->SetStateAnime(RUN);
+	//	gameData->m_player->SetStateAnime2(RUN);
+	//}
 
 }
 
@@ -47,24 +85,19 @@ void Update(float deltaTime)
 // See App.h 
 //------------------------------------------------------------------------
 void Render()
-{	
+{
 	gameData->m_background->DisplayBackground();
 	gameData->m_player->DisplayPlayer();
 
 	switch (*gameData->m_gameState)
 	{
-	case MENU :
+	case MENU:
 		gameData->m_menuStart->Display();
 		break;
-	case INGAME : 
+	case INGAME:
 		break;
 	default:
 		break;
-	}
-
-	if (App::IsKeyPressed(VK_RBUTTON))
-	{
-		*gameData->m_gameState = INGAME;
 	}
 }
 //------------------------------------------------------------------------
@@ -72,7 +105,7 @@ void Render()
 // Just before the app exits.
 //------------------------------------------------------------------------
 void Shutdown()
-{	
+{
 	gameData->m_background->~CBackground();
 	gameData->m_player->~CPlayer();
 	gameData->~GameData();

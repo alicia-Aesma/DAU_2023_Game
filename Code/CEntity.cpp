@@ -50,17 +50,6 @@ void CEntity::UpdateEntity(float deltaTime)
 {
 	m_sprite->Update(deltaTime);
 
-	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_A, true))
-	//{
-	//	float x2;
-	//	float y2;
-	//	float x;
-	//	float y;
-	//	/*m_sprite2->GetPosition(x2, y2);
-	//	m_sprite->GetPosition(x, y);
-	//	m_sprite->SetPosition(x2, y2);
-	//	m_sprite2->SetPosition(x, y);*/
-	//}
 }
 
 EAnimation* CEntity::GetStateAnim()

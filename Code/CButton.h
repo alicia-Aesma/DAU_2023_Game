@@ -4,21 +4,27 @@
 
 class CSimpleSprite;
 enum EGameState;
+typedef void (*PtrFonctOnclick)();
 
 class CButton : public IInteractible
 {
-public :
-	CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, EGameState gameState);
+public:
+
+	CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOnclick onclick);
 	~CButton();
 	void Display();
 
+	// Inherited via IInteractible
+	virtual void OnClick() override;
+
 private:
+
 	CSimpleSprite* m_sprite = nullptr;
 	CSimpleSprite* m_overlapSprite = nullptr;
-	EGameState* m_gameState = nullptr;
+	PtrFonctOnclick m_onClick = nullptr;
 
-	// IInteractible
-	void onMouseClick() override;
+	// Inherited via IInteractible
+	virtual bool MouseIsOnInteractible() override;
 
 };
 
