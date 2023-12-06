@@ -1,32 +1,37 @@
 #ifndef CBUTTON_H
 #define CBUTTON_H
-#include "Iinteractive.h"
+#include "Iinteractible.h"
 
 class CSimpleSprite;
-enum EGameState;
-typedef void (*PtrFonctOnclick)();
 
-class CButton : public IInteractible
+namespace InfiniteScroller
 {
-public:
+	enum EGameState;
+	typedef void (*PtrFonctOnclick)();
 
-	CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOnclick onclick);
-	~CButton();
-	void Display();
+	class CButton : public IInteractible
+	{
+	public:
 
-	// Inherited via IInteractible
-	virtual void OnClick() override;
+		CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOnclick onclick);
+		~CButton();
+		void Display();
 
-private:
+		// Inherited via IInteractible
+		virtual void OnClick() override;
 
-	CSimpleSprite* m_sprite = nullptr;
-	CSimpleSprite* m_overlapSprite = nullptr;
-	PtrFonctOnclick m_onClick = nullptr;
+	private:
 
-	// Inherited via IInteractible
-	virtual bool MouseIsOnInteractible() override;
+		CSimpleSprite* m_sprite{ nullptr };
+		CSimpleSprite* m_overlapSprite{ nullptr };
+		PtrFonctOnclick m_onClick{ nullptr };
 
-};
+	private:
+		// Inherited via IInteractible
+		virtual bool MouseIsOnInteractible() override;
+
+	};
+}
 
 #endif // !CBUTTON_H
 

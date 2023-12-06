@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "CButton.h"
 #include "GameData.h"
-#include "EGameState.h"
-#include "App/app.h"
+#include "../App/app.h"
+#include "InfiniteScroller.h"
+
+using namespace InfiniteScroller;
 
 CButton::CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOnclick onclick)
 {
@@ -14,11 +16,8 @@ CButton::CButton(CSimpleSprite* sprite, CSimpleSprite* overlapSprite, PtrFonctOn
 
 CButton::~CButton()
 {
-	if (m_sprite != nullptr)
-		delete m_sprite;
-
-	if (m_overlapSprite != nullptr)
-		delete m_overlapSprite;
+	SAFE_DELETE(m_sprite);
+	SAFE_DELETE(m_overlapSprite);
 }
 
 void CButton::Display()

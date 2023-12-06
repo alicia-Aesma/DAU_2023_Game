@@ -1,25 +1,34 @@
 #ifndef GAMEDATA_H
 #define GAMEDATA_H
 
-class CBackground;
-class CPlayer;
-class CMenuStart;
-enum EGameState;
+#include "InfiniteScroller.h"
 
-class GameData
+namespace InfiniteScroller
 {
-public:
-	static GameData* GetInstance();
-	CBackground* m_background = nullptr;
-	CPlayer* m_player = nullptr;
-	EGameState* m_gameState = nullptr;
-	CMenuStart* m_menuStart = nullptr;
-	void Update();
-	void Init();
+	class CBackground;
+	class CPlayer;
+	class CMenuStart;
 
-private : 
-	EGameState m_lastGameState;
-};
+	class GameData
+	{
+	public:
+
+		CBackground* m_background{ nullptr };
+		CPlayer* m_player{ nullptr };
+		EGameState m_gameState{ MENU};
+		CMenuStart* m_menuStart{ nullptr };
+
+	public:
+
+		static GameData* GetInstance();
+		void Update();
+		void Init();
+		~GameData();
+
+	private:
+		EGameState m_lastGameState;
+	};
+}
 
 #endif
 

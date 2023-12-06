@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "CBackground.h"
-#include "App/app.h"
+#include "../App/app.h"
 #include <string>
-#include "App/AppSettings.h"
+#include "../App/AppSettings.h"
+#include "InfiniteScroller.h"
 
-void CBackground::DisplayBackground()
+using namespace InfiniteScroller;
+
+void InfiniteScroller::CBackground::DisplayBackground()
 {
 	//allows to move all the layers of the backgrounds
 	for (int i = 11; i >= 0; i--)
@@ -56,9 +59,6 @@ CBackground::CBackground()
 
 	}
 
-	m_isPause = true;
-	m_referenceSpeed = 0.12f;
-	m_currentSpeed = m_referenceSpeed;
 
 	m_layerSpeed[0] = 1;
 	m_layerSpeed[1] = 1;
@@ -78,6 +78,10 @@ CBackground::CBackground()
 CBackground::~CBackground()
 {
 	if (m_layer != nullptr)
+	{
 		for (int i = 0; i < NB_BACKGROUND_LAYER; i++)
-			delete m_layer[i];
+		{
+			SAFE_DELETE(m_layer[i]);
+		}
+	}
 }

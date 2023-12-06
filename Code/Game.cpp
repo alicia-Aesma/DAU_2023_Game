@@ -1,25 +1,23 @@
 //------------------------------------------------------------------------
-// GameTest.cpp
+// Game.cpp
 //------------------------------------------------------------------------
 #include "stdafx.h"
 #include "GameData.h"
 #include "CBackground.h"
 #include "CPlayer.h"
-#include "EGameState.h"
 #include "CMenuStart.h"
 #include "Onclick.h"
-#include "EAnimation.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
 //------------------------------------------------------------------------
-#include "app\app.h"
+#include "../app/app.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
 // Example data....
 //------------------------------------------------------------------------
-GameData* gameData = gameData->GetInstance();
+InfiniteScroller::GameData* gameData = gameData->GetInstance();
 
 //------------------------------------------------------------------------
 
@@ -37,12 +35,12 @@ void Init()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
-	switch (*gameData->m_gameState)
+	switch (gameData->m_gameState)
 	{
-	case MENU:
+	case InfiniteScroller::MENU:
 		gameData->m_menuStart->Input();
 		break;
-	case INGAME:
+	case InfiniteScroller::INGAME:
 		//gameData->m_background->SetPause(false);
 		//gameData->m_player->SetStateAnime(RUN);
 		//gameData->m_player->SetStateAnime2(RUN);
@@ -89,12 +87,12 @@ void Render()
 	gameData->m_background->DisplayBackground();
 	gameData->m_player->DisplayPlayer();
 
-	switch (*gameData->m_gameState)
+	switch (gameData->m_gameState)
 	{
-	case MENU:
+	case InfiniteScroller::MENU:
 		gameData->m_menuStart->Display();
 		break;
-	case INGAME:
+	case InfiniteScroller::INGAME:
 		break;
 	default:
 		break;
@@ -106,7 +104,5 @@ void Render()
 //------------------------------------------------------------------------
 void Shutdown()
 {
-	gameData->m_background->~CBackground();
-	gameData->m_player->~CPlayer();
-	gameData->~GameData();
+
 }

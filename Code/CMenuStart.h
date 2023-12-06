@@ -1,26 +1,27 @@
 #ifndef CMENUSTART_H
 #define CMENUSTART_H
+
 #define VERTICAL_DIST_BETWEEN_BTN 300.0f
 
-
-class CButton;
-
-class CMenuStart
+namespace InfiniteScroller
 {
-public :
+	class CButton;
 
-	CMenuStart();
-	~CMenuStart();
-	void Display();
-	void Input();
+	class CMenuStart
+	{
+	public:
 
-private :
+		CMenuStart();
+		~CMenuStart();
+		void Display();
+		void Input();
 
-	CButton* m_buttonPlay = nullptr;
-	CButton* m_buttonQuit = nullptr;
+	private:
 
-
-};
+		CButton* m_buttonPlay{ nullptr };
+		CButton* m_buttonQuit{ nullptr };
+	};
+}
 
 #endif // !CMENUSTART_H
 
