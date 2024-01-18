@@ -6,6 +6,7 @@
 #include "GameData.h"
 #include "CEnemiesSpawner.h"
 #include "CScore.h"
+#include "CHeart.h"
 
 #define SCORE_WHEN_KILL 10
 
@@ -104,6 +105,13 @@ void CEnemy::HurtEnemy(int damage)
 		{
 			//play death animation
 			m_stateAnim = DEAD;
+			Loot();
 		}
 	}
+}
+
+void CEnemy::Loot()
+{
+	CHeart* item= new CHeart(m_position.x + m_sprite->GetWidth(), m_position.y);
+	GameData::GetInstance()->m_itemList.push_back(*item);
 }

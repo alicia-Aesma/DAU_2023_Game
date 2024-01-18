@@ -69,6 +69,8 @@ void CPlayer::UpdatePlayer(float deltaTime)
 				{
 					m_isAlive = false;//player is dead
 					GameData::GetInstance()->m_isPause = true;
+					GameData::GetInstance()->m_gameState = DEATHMENU;
+
 				}
 			}
 
@@ -129,7 +131,7 @@ void CPlayer::Attack()
 	gameData.GetInstance()->m_enemiesSpawner->HurtEnemies(m_damage);
 }
 
-void InfiniteScroller::CPlayer::Input(float deltaTime)
+void CPlayer::Input(float deltaTime)
 {
 	m_inputDelay += deltaTime / 100.0f;
 
@@ -170,6 +172,13 @@ void InfiniteScroller::CPlayer::Input(float deltaTime)
 			m_inputDelay = 0.0f;
 		}
 	}
+}
+
+void CPlayer::HpGain(float hp)
+{
+	m_hp += hp;
+	if (m_hp > m_maxHp)
+		m_hp = m_maxHp;
 }
 
 CPlayer::~CPlayer()

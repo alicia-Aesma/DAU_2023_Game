@@ -6,6 +6,8 @@
 #include "CEnemiesSpawner.h"
 #include "CHPBar.h"
 #include "CScore.h"
+#include "CDeathMenu.h"
+#include "CHeart.h"
 
 using namespace InfiniteScroller;
 
@@ -13,17 +15,6 @@ GameData* GameData::GetInstance()
 {
 	static GameData singleInstance;
 	return &singleInstance;
-}
-
-void GameData::Update()
-{
-
-	if (m_gameState != m_lastGameState)
-	{
-		m_lastGameState = m_gameState;
-		//invoke event
-	}
-
 }
 
 void GameData::Init()
@@ -35,6 +26,7 @@ void GameData::Init()
 	m_enemiesSpawner = new CEnemiesSpawner();
 	m_hpBar = new CHpBar();
 	m_score = new CScore();
+	m_deathMenu = new CDeathMenu();
 }
 
 GameData::~GameData()

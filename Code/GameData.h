@@ -2,6 +2,8 @@
 #define GAMEDATA_H
 
 #include "InfiniteScroller.h"
+#include "CHeart.h"
+#include <list>
 
 namespace InfiniteScroller
 {
@@ -11,6 +13,7 @@ namespace InfiniteScroller
 	class CEnemiesSpawner;
 	class CHpBar;
 	class CScore;
+	class CDeathMenu;
 
 	class GameData
 	{
@@ -23,13 +26,14 @@ namespace InfiniteScroller
 		CEnemiesSpawner* m_enemiesSpawner;
 		CHpBar* m_hpBar{ nullptr };
 		CScore* m_score;
+		CDeathMenu* m_deathMenu{ nullptr };
 		bool m_isPause{ true };
+		std::list<CHeart> m_itemList;
 
 
 	public:
 
 		static GameData* GetInstance();
-		void Update();
 		void Init();
 		~GameData();
 

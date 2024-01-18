@@ -18,6 +18,7 @@ namespace InfiniteScroller
 		void UpdateEnemies(float deltaTime);
 		void SpawnEnemies();
 		void HurtEnemies(int damage);
+		void ClearEnemies();
 
 	private :
 		std::list<CEnemy> m_enemiesInScene;

@@ -92,6 +92,12 @@ void CEntity::GetSize(float& width, float& height)
 	height = m_sprite->GetHeight();
 }
 
+void InfiniteScroller::CEntity::ResetHp()
+{
+	m_hp = m_maxHp;
+	m_isAlive = true;
+}
+
 CEntity::~CEntity()
 {
 	SAFE_DELETE(m_sprite);

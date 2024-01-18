@@ -1,8 +1,6 @@
 #ifndef CMENUSTART_H
 #define CMENUSTART_H
 
-#define VERTICAL_DIST_BETWEEN_BTN 300.0f
-
 namespace InfiniteScroller
 {
 	class CButton;

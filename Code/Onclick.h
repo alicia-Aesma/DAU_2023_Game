@@ -4,6 +4,7 @@
 
 	void ChangeGameStatetoPlay();
 	void QuitGame();
+	void OpenMenu();
 
 
 #endif // !ONCLICK_H

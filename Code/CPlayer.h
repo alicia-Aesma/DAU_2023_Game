@@ -16,6 +16,7 @@ namespace InfiniteScroller
 		void SetStateAnime2(EAnimation animation);
 		void HurtPlayer(int damage);
 		void Input(float deltaTime);
+		void HpGain(float hp);
 
 	private:
 		EAnimation m_lastStateAnim2{ IDLE };

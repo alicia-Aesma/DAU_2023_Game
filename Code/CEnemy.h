@@ -19,6 +19,10 @@ namespace InfiniteScroller
 		float m_currentSpeed{ m_referenceSpeed };
 		const int m_attackDamage{ 10 };
 		bool m_canAttack{ true };
+		const float m_dropChance{0.5f};
+
+	private :
+		void Loot();
 
 	};
 }

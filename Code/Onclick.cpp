@@ -4,7 +4,9 @@
 #include "InfiniteScroller.h"
 #include "CBackground.h"
 #include "CPlayer.h"
-#include <iostream>
+#include "CScore.h"
+#include "CEnemiesSpawner.h"
+#include "CHeart.h"
 
 void ChangeGameStatetoPlay()
 {
@@ -18,4 +20,15 @@ void ChangeGameStatetoPlay()
 void QuitGame()
 {
 	exit(0);
+}
+
+void OpenMenu()
+{
+	InfiniteScroller::GameData::GetInstance()->m_gameState = InfiniteScroller::MENU;
+	InfiniteScroller::GameData::GetInstance()->m_score->ResetScore();
+	InfiniteScroller::GameData::GetInstance()->m_enemiesSpawner->ClearEnemies();
+	InfiniteScroller::GameData::GetInstance()->m_player->SetStateAnime(InfiniteScroller::IDLE);
+	InfiniteScroller::GameData::GetInstance()->m_player->SetStateAnime2(InfiniteScroller::IDLE);
+	InfiniteScroller::GameData::GetInstance()->m_player->ResetHp();
+	InfiniteScroller::GameData::GetInstance()->m_itemList.clear();
 }

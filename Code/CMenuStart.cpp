@@ -6,6 +6,7 @@
 #include "Onclick.h"
 
 #define PATH_MENU_SPRITE "..//Asset//Sprites//UI//Menu//"
+#define VERTICAL_DIST_BETWEEN_BTN 300.0f
 
 using namespace InfiniteScroller;
 

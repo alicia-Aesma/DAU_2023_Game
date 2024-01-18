@@ -23,6 +23,7 @@ namespace InfiniteScroller
 		void SetStateAnime(EAnimation animation);
 		void GetPosition(float& x, float& y);
 		void GetSize(float& width, float& height);
+		void ResetHp();
 
 	protected:
 		int m_hp{ 0 };

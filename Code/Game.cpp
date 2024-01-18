@@ -10,6 +10,8 @@
 #include "CEnemiesSpawner.h"
 #include "CHPBar.h"
 #include "CScore.h"
+#include "CDeathMenu.h"
+#include "CHeart.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
@@ -48,12 +50,17 @@ void Update(float deltaTime)
 	case InfiniteScroller::INGAME:
 		gameData->m_enemiesSpawner->UpdateEnemies(deltaTime);
 		gameData->m_score->UpdateScore(deltaTime);
+		for (InfiniteScroller::CHeart& item : gameData->m_itemList)
+			item.Update(deltaTime);
+		
+		break;
+	case InfiniteScroller::DEATHMENU:
+		gameData->m_deathMenu->Input();
 		break;
 	default:
 		break;
 	}
 
-	gameData->Update();
 	gameData->m_background->UpdateBackground(deltaTime);
 	gameData->m_player->UpdatePlayer(deltaTime);
 	
@@ -78,6 +85,11 @@ void Render()
 		gameData->m_hpBar->DisplayHPBar();
 		gameData->m_enemiesSpawner->DisplayEnemies();
 		gameData->m_score->DisplayScore();
+		for (InfiniteScroller::CHeart& item : gameData->m_itemList)
+			item.Display();
+		break;
+	case InfiniteScroller::DEATHMENU:
+		gameData->m_deathMenu->Display();
 		break;
 	default:
 		break;

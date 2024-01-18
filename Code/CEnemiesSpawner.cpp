@@ -79,9 +79,9 @@ void CEnemiesSpawner::SpawnEnemies()
 	char* enemy = new char[s.length() + 1];
 	strcpy(enemy, s.c_str());
 
-	CEnemy* newEnemy = new CEnemy(1, enemy, 4, 4, 0.3f);//creates new enemy
+	CEnemy* newEnemy = new CEnemy(1, enemy, 4, 4, 0.3f);
 
-	m_enemiesInScene.push_back(*newEnemy); //adds enemy to list of enemies present in the scene
+	m_enemiesInScene.push_back(*newEnemy); //creates new enemy and adds enemy to list of enemies present in the scene
 
 }
 
@@ -91,4 +91,9 @@ void CEnemiesSpawner::HurtEnemies(int damage)
 	{
 		enemy.HurtEnemy(damage);
 	}
+}
+
+void CEnemiesSpawner::ClearEnemies()
+{
+	m_enemiesInScene.clear();
 }
