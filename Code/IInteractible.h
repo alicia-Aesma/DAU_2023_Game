@@ -7,7 +7,14 @@ namespace InfiniteScroller
 	{
 
 	public:
+		/// <summary>
+		/// Function that is triggered if an interactable is activated
+		/// </summary>
 		virtual void OnClick() = 0;
+		/// <summary>
+		/// Test if the mouse is on button
+		/// </summary>
+		/// <returns>returns if the mouse is onbutton</returns>
 		virtual bool MouseIsOnInteractible() = 0;
 	};
 }

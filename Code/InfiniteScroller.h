@@ -19,17 +19,17 @@ namespace InfiniteScroller
 		ACTION,
 		HURT,
 		JUMP,
-		COUNT,
+		COUNT_ANIMATION,
 	};
 
 	enum EGameState
 	{
-
 		MENU,
 		DEATHMENU,
 		INGAME,
 		PAUSE,
 	};
+
 }
 
 #endif 

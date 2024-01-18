@@ -7,11 +7,15 @@
 #include "CPlayer.h"
 #include "CMenuStart.h"
 #include "Onclick.h"
+#include "CEnemiesSpawner.h"
+#include "CHPBar.h"
+#include "CScore.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
 //------------------------------------------------------------------------
 #include "../app/app.h"
+#include <iostream>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
@@ -39,11 +43,11 @@ void Update(float deltaTime)
 	{
 	case InfiniteScroller::MENU:
 		gameData->m_menuStart->Input();
+		gameData->m_score->ResetScore();
 		break;
 	case InfiniteScroller::INGAME:
-		//gameData->m_background->SetPause(false);
-		//gameData->m_player->SetStateAnime(RUN);
-		//gameData->m_player->SetStateAnime2(RUN);
+		gameData->m_enemiesSpawner->UpdateEnemies(deltaTime);
+		gameData->m_score->UpdateScore(deltaTime);
 		break;
 	default:
 		break;
@@ -52,29 +56,7 @@ void Update(float deltaTime)
 	gameData->Update();
 	gameData->m_background->UpdateBackground(deltaTime);
 	gameData->m_player->UpdatePlayer(deltaTime);
-
-
-	//TEST ANIMATION CODE
-	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_A, true))
-	//{
-	//	gameData->m_player->SetStateAnime(ACTION);
-	//	gameData->m_player->SetStateAnime2(ACTION);
-	//}
-	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
-	//{
-	//	gameData->m_player->SetStateAnime(DEAD);
-	//	gameData->m_player->SetStateAnime2(DEAD);
-	//}
-	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_X, true))
-	//{
-	//	gameData->m_player->SetStateAnime(HURT);
-	//	gameData->m_player->SetStateAnime2(HURT);
-	//}
-	//if (App::GetController().CheckButton(XINPUT_GAMEPAD_Y, true))
-	//{
-	//	gameData->m_player->SetStateAnime(RUN);
-	//	gameData->m_player->SetStateAnime2(RUN);
-	//}
+	
 
 }
 
@@ -93,6 +75,9 @@ void Render()
 		gameData->m_menuStart->Display();
 		break;
 	case InfiniteScroller::INGAME:
+		gameData->m_hpBar->DisplayHPBar();
+		gameData->m_enemiesSpawner->DisplayEnemies();
+		gameData->m_score->DisplayScore();
 		break;
 	default:
 		break;

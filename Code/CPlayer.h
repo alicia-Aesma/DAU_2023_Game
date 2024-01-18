@@ -12,12 +12,21 @@ namespace InfiniteScroller
 		~CPlayer();
 		void DisplayPlayer();
 		void UpdatePlayer(float deltaTime);
-		EAnimation* GetStateAnim2();
+		EAnimation GetStateAnim2();
 		void SetStateAnime2(EAnimation animation);
+		void HurtPlayer(int damage);
+		void Input(float deltaTime);
 
 	private:
-		EAnimation* m_stateAnim2{ nullptr };
-		CSimpleSprite* m_sprite2{nullptr};
+		EAnimation m_lastStateAnim2{ IDLE };
+		EAnimation m_stateAnim2{ IDLE };
+		CSimpleSprite* m_sprite2{ nullptr };
+		float m_inputDelay{ 0 };
+		int m_damage{1};
+
+	private:
+		void Attack();
+
 
 	};
 }

@@ -4,11 +4,13 @@
 #include <string>
 #include "../App/AppSettings.h"
 #include "InfiniteScroller.h"
+#include "GameData.h"
 
 using namespace InfiniteScroller;
 
 void InfiniteScroller::CBackground::DisplayBackground()
 {
+	GameData gameData;
 	//allows to move all the layers of the backgrounds
 	for (int i = 11; i >= 0; i--)
 	{
@@ -17,7 +19,7 @@ void InfiniteScroller::CBackground::DisplayBackground()
 		float y;
 		m_layer[i]->GetPosition(x, y);
 
-		if (!m_isPause)
+		if (!gameData.GetInstance()->m_isPause)
 		{
 
 			//moves the x position of the layer to the left
@@ -43,12 +45,13 @@ void InfiniteScroller::CBackground::DisplayBackground()
 
 void CBackground::UpdateBackground(float deltaTime)
 {
-	//Updates the speed of my backgrounds according to the frame rate
+	//Update speed of background according to the frame rate
 	m_currentSpeed = m_referenceSpeed * deltaTime;
 }
 
 CBackground::CBackground()
 {
+	//load and init layers
 	for (int i = 0; i < NB_BACKGROUND_LAYER; i++)
 	{
 		std::string s = "..//Asset//Sprites//Background//Layer_" + std::to_string(i) + ".png";
@@ -59,7 +62,7 @@ CBackground::CBackground()
 
 	}
 
-
+	//init the scrolling speed of each layer
 	m_layerSpeed[0] = 1;
 	m_layerSpeed[1] = 1;
 	m_layerSpeed[2] = 1;

@@ -11,21 +11,23 @@ using namespace InfiniteScroller;
 
 CMenuStart::CMenuStart()
 {
-	////Init button Play
+	//init play button sprite
 	CSimpleSprite* sprite = App::CreateSprite(PATH_MENU_SPRITE "Button_Play.png", 1, 1);
 	sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f + VERTICAL_DIST_BETWEEN_BTN);
+	//init overlap of play button sprite
 	CSimpleSprite* spriteOverlap = App::CreateSprite(PATH_MENU_SPRITE "Button_Play_Overlap.png", 1, 1);
 	spriteOverlap->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f + VERTICAL_DIST_BETWEEN_BTN);
-
+	//init play button
 	m_buttonPlay = new CButton(sprite, spriteOverlap, &ChangeGameStatetoPlay );
 
 
-	////Init button quit
+	//init quit button sprite
 	sprite = App::CreateSprite(PATH_MENU_SPRITE "Button_Quit.png",1,1);
-	sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f - VERTICAL_DIST_BETWEEN_BTN);
+	sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f );
+	//init overlap of quit button sprite
 	spriteOverlap = App::CreateSprite(PATH_MENU_SPRITE "Button_Quit_Overlap.png",1,1);
-	spriteOverlap->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f - VERTICAL_DIST_BETWEEN_BTN);
-
+	spriteOverlap->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, APP_INIT_WINDOW_HEIGHT / 2.0f);
+	//init quit button
 	m_buttonQuit = new CButton(sprite, spriteOverlap, &QuitGame);
 }
 

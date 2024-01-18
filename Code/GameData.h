@@ -8,6 +8,9 @@ namespace InfiniteScroller
 	class CBackground;
 	class CPlayer;
 	class CMenuStart;
+	class CEnemiesSpawner;
+	class CHpBar;
+	class CScore;
 
 	class GameData
 	{
@@ -17,6 +20,11 @@ namespace InfiniteScroller
 		CPlayer* m_player{ nullptr };
 		EGameState m_gameState{ MENU};
 		CMenuStart* m_menuStart{ nullptr };
+		CEnemiesSpawner* m_enemiesSpawner;
+		CHpBar* m_hpBar{ nullptr };
+		CScore* m_score;
+		bool m_isPause{ true };
+
 
 	public:
 

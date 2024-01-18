@@ -2,6 +2,7 @@
 #include "CEntity.h"
 #include "InfiniteScroller.h"
 #include "../App/app.h"
+#include <vector>
 
 using namespace InfiniteScroller;
 
@@ -10,13 +11,17 @@ CSimpleSprite* CEntity::InitSprite(char* spritePath, int spriteColumns, int spri
 	CSimpleSprite* sprite = App::CreateSprite(spritePath, spriteColumns, spriteRows);
 	sprite->SetScale(1.0f);
 
-	std::vector<int> vectorColumns;
-	for (int i = 0; i < spriteColumns && i < InfiniteScroller::COUNT; i++)
-		vectorColumns.push_back(i);
+	m_totalNumberFrames = spriteColumns;
+
 
 	for (int i = 0; i < spriteRows; i++)
 	{
-		sprite->CreateAnimation((EAnimation)i, speed, { 0 + i * spriteColumns,1 + i * spriteColumns,2 + i * spriteColumns,3 + i * spriteColumns,4 + i * spriteColumns ,5 + i * spriteColumns,6 + i * spriteColumns });
+		std::vector<int> frames;
+
+		for (int f = 0; f < spriteColumns; f++)
+			frames.push_back(f + i * spriteColumns);
+
+		sprite->CreateAnimation((EAnimation)i, speed, frames);
 		sprite->SetAnimation((EAnimation)i);
 	}
 
@@ -29,44 +34,66 @@ CEntity::CEntity(int maxHp, char* spritePath, int spriteColumns, int spriteRows,
 	m_maxHp = maxHp;
 	m_hp = m_maxHp;
 
-	m_stateAnim = new EAnimation();
-	*m_stateAnim = InfiniteScroller::IDLE;
+	m_stateAnim = IDLE;
+	m_lastStateAnim = m_stateAnim;
 
 	m_sprite = InitSprite(spritePath, spriteColumns, spriteRows, speed);
-	m_sprite->SetPosition(APP_INIT_WINDOW_WIDTH / 2.0f, HEIGHT_FROM_GROUND + m_sprite->GetHeight() / 2.0f);
-	m_sprite->SetAnimation(*m_stateAnim);
+
+	m_position.x = APP_INIT_WINDOW_WIDTH / 2.0f;
+	m_position.y = HEIGHT_FROM_GROUND + m_sprite->GetHeight() / 2.0f;
+
+	m_sprite->SetPosition(m_position.x, m_position.y);
+	m_sprite->SetAnimation(m_stateAnim);
 }
-
-
-
 
 void CEntity::DisplayEntity()
 {
 	m_sprite->Draw();
-	
 }
+
 
 void CEntity::UpdateEntity(float deltaTime)
 {
-	m_sprite->Update(deltaTime);
+	if (m_isAlive)
+	{
+		//set animation if animation has changed
+		if (m_lastStateAnim != m_stateAnim)
+		{
+			m_endLoopAnimation = false;
+			m_sprite->SetAnimation(m_stateAnim);
+			m_sprite->SetAnimTime(0);
+			m_lastStateAnim = m_stateAnim;
+		}
 
+		//update animation
+		m_sprite->Update(deltaTime);
+	}
 }
 
-EAnimation* CEntity::GetStateAnim()
+EAnimation CEntity::GetStateAnim()
 {
 	return m_stateAnim;
 }
 
 void CEntity::SetStateAnime(EAnimation animation)
 {
-	*m_stateAnim = animation;
-	m_sprite->SetAnimation(*m_stateAnim);
+	m_stateAnim = animation;
+}
+
+void CEntity::GetPosition(float& x, float& y)
+{
+	x = m_position.x;
+	y = m_position.y;
+}
+
+void CEntity::GetSize(float& width, float& height)
+{
+	width = m_sprite->GetWidth();
+	height = m_sprite->GetHeight();
 }
 
 CEntity::~CEntity()
 {
-	if (m_sprite != nullptr)
-	delete m_sprite;
-	if (m_stateAnim != nullptr)
-	delete m_stateAnim;
+	SAFE_DELETE(m_sprite);
 }
+
