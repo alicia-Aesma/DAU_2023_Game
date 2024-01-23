@@ -34,11 +34,10 @@ CHpBar::~CHpBar()
 void CHpBar::DisplayHPBar()
 {
 	//get player
-	GameData gameData;
-	CEntity* player = gameData.GetInstance()->m_player;
+	CPlayer* player = GameData::GetInstance()->GetPlayer();
 
 	//calculate player's life percentage 
-	float percentageOfLife = (float)player->m_hp / (float)player->m_maxHp;
+	const float percentageOfLife = (float)player->m_hp / (float)player->m_maxHp;
 
 	//displays hp bar according to player's life percentage
 	if (player->m_hp <= 0.0f)

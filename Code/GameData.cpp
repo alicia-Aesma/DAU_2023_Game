@@ -21,7 +21,6 @@ void GameData::Init()
 {
 	m_background = new CBackground();
 	m_player = new CPlayer(50, "..//Asset//Sprites//Skeleton_Warrior//Warrior.png", "..//Asset//Sprites//Skeleton_Spearman//Spearman.png", 7, 5, 0.2f);
-	m_lastGameState = m_gameState;
 	m_menuStart = new CMenuStart();
 	m_enemiesSpawner = new CEnemiesSpawner();
 	m_hpBar = new CHpBar();

@@ -25,7 +25,7 @@ void CHeart::Display()
 
 void CHeart::Update(float deltaTime)
 {
-	if (!GameData::GetInstance()->m_isPause)
+	if (!GameData::GetInstance()->GetPause())
 	{
 		//get position of the item
 		FDot itemPos;
@@ -44,6 +44,11 @@ void CHeart::Update(float deltaTime)
 	}
 }
 
+bool CHeart::GetIsDestroy()
+{
+	return m_isDestroy;
+}
+
 void CHeart::CollisionWithPlayer()
 {
 	//get position of the item
@@ -52,13 +57,15 @@ void CHeart::CollisionWithPlayer()
 
 	//get position of the player
 	FDot playerPos;
-	GameData::GetInstance()->m_player->GetPosition(playerPos.x, playerPos.y);
+	GameData::GetInstance()->GetPlayer()->GetPosition(playerPos.x, playerPos.y);
 
 	const float distance = itemPos.x - playerPos.x;
 
+	//if player is close enough to the item he heals himself and destroys item
 	if (distance <= m_sprite->GetWidth())
 	{
-		GameData::GetInstance()->m_player->HpGain(m_hpGain);
+		GameData::GetInstance()->GetPlayer()->HpGain(m_hpGain);
+		m_isDestroy = true;
 	}
 
 

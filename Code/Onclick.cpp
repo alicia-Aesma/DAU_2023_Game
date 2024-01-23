@@ -11,10 +11,10 @@
 void ChangeGameStatetoPlay()
 {
 	InfiniteScroller::GameData* gameData = gameData->GetInstance();
-	gameData->m_gameState = InfiniteScroller::INGAME;
-	gameData->m_isPause = false;
-	gameData->m_player->SetStateAnime(InfiniteScroller::RUN);
-	gameData->m_player->SetStateAnime2(InfiniteScroller::RUN);
+	gameData->SetState(InfiniteScroller::INGAME);
+	gameData->SetPause(false);
+	gameData->GetPlayer()->SetStateAnime(InfiniteScroller::RUN);
+	gameData->GetPlayer()->SetStateAnime2(InfiniteScroller::RUN);
 }
 
 void QuitGame()
@@ -24,11 +24,10 @@ void QuitGame()
 
 void OpenMenu()
 {
-	InfiniteScroller::GameData::GetInstance()->m_gameState = InfiniteScroller::MENU;
-	InfiniteScroller::GameData::GetInstance()->m_score->ResetScore();
-	InfiniteScroller::GameData::GetInstance()->m_enemiesSpawner->ClearEnemies();
-	InfiniteScroller::GameData::GetInstance()->m_player->SetStateAnime(InfiniteScroller::IDLE);
-	InfiniteScroller::GameData::GetInstance()->m_player->SetStateAnime2(InfiniteScroller::IDLE);
-	InfiniteScroller::GameData::GetInstance()->m_player->ResetHp();
-	InfiniteScroller::GameData::GetInstance()->m_itemList.clear();
+	InfiniteScroller::GameData::GetInstance()->SetState(InfiniteScroller::MENU);
+	InfiniteScroller::GameData::GetInstance()->GetScore()->ResetScore();
+	InfiniteScroller::GameData::GetInstance()->GetEnemiesSpawner()->ClearEnemies();
+	InfiniteScroller::GameData::GetInstance()->GetPlayer()->SetStateAnime(InfiniteScroller::IDLE);
+	InfiniteScroller::GameData::GetInstance()->GetPlayer()->SetStateAnime2(InfiniteScroller::IDLE);
+	InfiniteScroller::GameData::GetInstance()->GetPlayer()->ResetHp();
 }

@@ -8,14 +8,18 @@
 #include "CScore.h"
 #include "CHeart.h"
 
-#define SCORE_WHEN_KILL 10
-
 using namespace InfiniteScroller;
 
 CEnemy::CEnemy(int maxHp, char* spritePath, int spriteColumns, int spriteRows, float speed) : CEntity(maxHp, spritePath, spriteColumns, spriteRows, speed)
 {
+	//init enemy position ,position = screen size + half sprite size
 	m_position.x = APP_INIT_WINDOW_WIDTH + m_sprite->GetWidth() / 2.0f;
 	m_sprite->SetPosition(m_position.x, m_position.y);
+}
+
+InfiniteScroller::CEnemy::~CEnemy()
+{
+	SAFE_DELETE(m_item);
 }
 
 
@@ -23,6 +27,8 @@ void CEnemy::DisplayEnemy()
 {
 	//display enemy
 	DisplayEntity();
+	if (m_item != nullptr)
+		m_item->Display();
 }
 
 void CEnemy::UpdateEnemy(float deltaTime)
@@ -30,54 +36,10 @@ void CEnemy::UpdateEnemy(float deltaTime)
 	if (m_isAlive)
 	{
 		UpdateEntity(deltaTime);
-
-		//get player's position
-		GameData gameData;
-		FDot posPlayer;
-		gameData.GetInstance()->m_player->GetPosition(posPlayer.x, posPlayer.y);
-
-		//calculates the distance between player and enemy
-		float distance = m_position.x - posPlayer.x;
-
-		//if enemy is close enough to player and to his right attacks him
-		if (distance >= 0 && distance <= m_sprite->GetWidth() / 8.0f && m_stateAnim != DEAD) 
-		{
-			m_stateAnim = ACTION;
-		}
-
-		//if entity plays an animation that does not loop 
-		if (m_stateAnim == ACTION || m_stateAnim == DEAD)
-		{
-			if (m_sprite->GetFrame() == m_totalNumberFrames + (int)m_stateAnim * m_totalNumberFrames - 1)//if play the last frame of animation
-			{
-				m_endLoopAnimation = true;
-			}
-
-			if (m_endLoopAnimation) // if animation is finished
-			{
-				if (m_stateAnim == ACTION) // if attack animation is finished
-				{
-					m_stateAnim = IDLE; //play to default animation
-					if (m_canAttack)//security to avoid double attack
-					{
-						m_canAttack = false;
-						gameData.GetInstance()->m_player->HurtPlayer(m_attackDamage);// does damage to players
-					}
-				}
-				else if (m_stateAnim == DEAD)
-				{
-					m_isAlive = false;
-					GameData gameData;
-					gameData.GetInstance()->m_score->AddValueScore(SCORE_WHEN_KILL);
-				}
-			}
-
-		}
 	}
 
-	if (!GameData::GetInstance()->m_isPause)
+	if (!GameData::GetInstance()->GetPause())
 	{
-
 		//Update speed of enemy according to the frame rate
 		m_currentSpeed = m_referenceSpeed * deltaTime;
 
@@ -86,18 +48,33 @@ void CEnemy::UpdateEnemy(float deltaTime)
 
 		//move enemy
 		m_sprite->SetPosition(m_position.x, m_position.y);
+
+		//move item
+		if (m_item != nullptr)
+		{
+			if (m_item->GetIsDestroy())
+			{
+				SAFE_DELETE(m_item);
+			}
+			else
+			{
+				m_item->Update(deltaTime);
+			}
+		}
 	}
 }
 
 void CEnemy::HurtEnemy(int damage)
 {
+
 	FDot posPlayer;
+	GameData::GetInstance()->GetPlayer()->GetPosition(posPlayer.x, posPlayer.y);
 
-	GameData::GetInstance()->m_player->GetPosition(posPlayer.x, posPlayer.y);
+	//calculates the distance between player and enemy
+	const float distance = abs(m_position.x - posPlayer.x);
 
-	const float distance = abs(m_position.x - posPlayer.x);//calculates the distance between player and enemy
-
-	if (distance <= m_sprite->GetWidth()/4.0f) //if player is close enough to enemy, attacks him
+	//if player is close enough to enemy, attacks him, distanec <= quarter size of sprite
+	if (distance <= m_sprite->GetWidth() / 4.0f) 
 	{
 		m_hp -= damage;
 
@@ -105,13 +82,20 @@ void CEnemy::HurtEnemy(int damage)
 		{
 			//play death animation
 			m_stateAnim = DEAD;
-			Loot();
+			//test if enemy drops life when he dies death
+			if ((float)(rand()) / (float)(RAND_MAX) <= m_dropChance)
+				Loot();
 		}
 	}
 }
 
+EEnemyType CEnemy::GetEnemyType()
+{
+	return m_enemyType;
+}
+
 void CEnemy::Loot()
 {
-	CHeart* item= new CHeart(m_position.x + m_sprite->GetWidth(), m_position.y);
-	GameData::GetInstance()->m_itemList.push_back(*item);
+	//itemPosX = position in x of enemy + half width of enemy sprite, itemPosY = position in y of enemy - quarter of height of enemy sprite
+	m_item = new CHeart(m_position.x + m_sprite->GetWidth() / 2.0f, m_position.y - m_sprite->GetHeight() / 4.0f);
 }

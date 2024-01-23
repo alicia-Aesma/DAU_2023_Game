@@ -39,7 +39,9 @@ CEntity::CEntity(int maxHp, char* spritePath, int spriteColumns, int spriteRows,
 
 	m_sprite = InitSprite(spritePath, spriteColumns, spriteRows, speed);
 
+	//entity position in x = half width of screen
 	m_position.x = APP_INIT_WINDOW_WIDTH / 2.0f;
+	//entity position in y = height from ground + half height of entity sprite
 	m_position.y = HEIGHT_FROM_GROUND + m_sprite->GetHeight() / 2.0f;
 
 	m_sprite->SetPosition(m_position.x, m_position.y);

@@ -16,6 +16,7 @@ CPlayer::CPlayer(int maxHp, char* spritePath, char* spritePath2, int spriteColum
 	m_stateAnim2 = IDLE;
 
 	m_sprite2 = InitSprite(spritePath2, spriteColumns, spriteRows, speed);
+	//player's sprite position in x = position player in x - half width of its sprite
 	m_sprite2->SetPosition(m_position.x - m_sprite2->GetWidth() / 2.0f, m_position.y);
 
 	m_sprite2->SetAnimation(m_stateAnim2);
@@ -68,8 +69,8 @@ void CPlayer::UpdatePlayer(float deltaTime)
 				if (m_stateAnim == DEAD)
 				{
 					m_isAlive = false;//player is dead
-					GameData::GetInstance()->m_isPause = true;
-					GameData::GetInstance()->m_gameState = DEATHMENU;
+					GameData::GetInstance()->SetPause(true);
+					GameData::GetInstance()->SetState(DEATHMENU);
 
 				}
 			}
@@ -127,8 +128,7 @@ void CPlayer::HurtPlayer(int damage)
 
 void CPlayer::Attack()
 {
-	GameData gameData;
-	gameData.GetInstance()->m_enemiesSpawner->HurtEnemies(m_damage);
+	GameData::GetInstance()->GetEnemiesSpawner()->HurtEnemies(m_damage);
 }
 
 void CPlayer::Input(float deltaTime)

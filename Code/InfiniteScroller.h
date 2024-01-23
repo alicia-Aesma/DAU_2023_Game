@@ -3,6 +3,7 @@
 
 #define SAFE_DELETE(ptr) { if( (ptr) != nullptr ) delete (ptr); (ptr) = nullptr;}
 
+
 namespace InfiniteScroller
 {
 	struct FDot
@@ -28,6 +29,13 @@ namespace InfiniteScroller
 		DEATHMENU,
 		INGAME,
 		PAUSE,
+	};
+
+	enum EEnemyType
+	{
+		KNIGHT,
+		ARCHER,
+		ENEMY_COUNT,
 	};
 
 }

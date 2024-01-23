@@ -36,18 +36,16 @@ void CButton::OnClick()
 
 bool CButton::MouseIsOnInteractible()
 {
-	float mousePosX;
-	float mousePosY;
-	float buttonPosX;
-	float buttonPosY;
+	FDot mousePos;
+	FDot buttonPos;
 
 	//retrieves position of the mouse and center of button
-	App::GetMousePos(mousePosX, mousePosY);
-	m_sprite->GetPosition(buttonPosX, buttonPosY);
+	App::GetMousePos(mousePos.x, mousePos.y);
+	m_sprite->GetPosition(buttonPos.x, buttonPos.y);
 
 	//we suppose the button to be a rectangle, test if the mouse is in rectangle
-	if (mousePosX > buttonPosX - m_sprite->GetWidth() / 2.0f && mousePosX < buttonPosX + m_sprite->GetWidth() / 2.0f
-		&& mousePosY > buttonPosY - m_sprite->GetHeight() / 2.0f && mousePosY < buttonPosY + m_sprite->GetHeight() / 2.0f)
+	if (mousePos.x > buttonPos.x - m_sprite->GetWidth() / 2.0f && mousePos.x < buttonPos.x + m_sprite->GetWidth() / 2.0f
+		&& mousePos.y > buttonPos.y - m_sprite->GetHeight() / 2.0f && mousePos.y < buttonPos.y + m_sprite->GetHeight() / 2.0f)
 		return true;
 	else
 		return false;

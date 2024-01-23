@@ -10,7 +10,6 @@ using namespace InfiniteScroller;
 
 void InfiniteScroller::CBackground::DisplayBackground()
 {
-	GameData gameData;
 	//allows to move all the layers of the backgrounds
 	for (int i = 11; i >= 0; i--)
 	{
@@ -19,7 +18,7 @@ void InfiniteScroller::CBackground::DisplayBackground()
 		float y;
 		m_layer[i]->GetPosition(x, y);
 
-		if (!gameData.GetInstance()->m_isPause)
+		if (!GameData::GetInstance()->GetPause())
 		{
 
 			//moves the x position of the layer to the left

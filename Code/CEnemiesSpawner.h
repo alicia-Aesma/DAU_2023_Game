@@ -21,7 +21,7 @@ namespace InfiniteScroller
 		void ClearEnemies();
 
 	private :
-		std::list<CEnemy> m_enemiesInScene;
+		std::list<CEnemy*> m_enemiesInScene;
 		const float m_maxTimeBetweenSpawns{15.0f};
 		const float m_minTimeBetweenSpawns{5.0f};
 		float m_timeBetweenSpawn{0};

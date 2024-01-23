@@ -41,28 +41,27 @@ void Init()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
-	switch (gameData->m_gameState)
+	gameData->frame++;
+	switch (gameData->GetState())
 	{
 	case InfiniteScroller::MENU:
-		gameData->m_menuStart->Input();
-		gameData->m_score->ResetScore();
+		gameData->GetMenuStart()->Input();
+		gameData->GetScore()->ResetScore();
 		break;
 	case InfiniteScroller::INGAME:
-		gameData->m_enemiesSpawner->UpdateEnemies(deltaTime);
-		gameData->m_score->UpdateScore(deltaTime);
-		for (InfiniteScroller::CHeart& item : gameData->m_itemList)
-			item.Update(deltaTime);
+		gameData->GetEnemiesSpawner()->UpdateEnemies(deltaTime);
+		gameData->GetScore()->UpdateScore(deltaTime);
 		
 		break;
 	case InfiniteScroller::DEATHMENU:
-		gameData->m_deathMenu->Input();
+		gameData->GetMenuDeath()->Input();
 		break;
 	default:
 		break;
 	}
 
-	gameData->m_background->UpdateBackground(deltaTime);
-	gameData->m_player->UpdatePlayer(deltaTime);
+	gameData->GetBackground()->UpdateBackground(deltaTime);
+	gameData->GetPlayer()->UpdatePlayer(deltaTime);
 	
 
 }
@@ -73,23 +72,21 @@ void Update(float deltaTime)
 //------------------------------------------------------------------------
 void Render()
 {
-	gameData->m_background->DisplayBackground();
-	gameData->m_player->DisplayPlayer();
+	gameData->GetBackground()->DisplayBackground();
+	gameData->GetPlayer()->DisplayPlayer();
 
-	switch (gameData->m_gameState)
+	switch (gameData->GetState())
 	{
 	case InfiniteScroller::MENU:
-		gameData->m_menuStart->Display();
+		gameData->GetMenuStart()->Display();
 		break;
 	case InfiniteScroller::INGAME:
-		gameData->m_hpBar->DisplayHPBar();
-		gameData->m_enemiesSpawner->DisplayEnemies();
-		gameData->m_score->DisplayScore();
-		for (InfiniteScroller::CHeart& item : gameData->m_itemList)
-			item.Display();
+		gameData->GetHpBar()->DisplayHPBar();
+		gameData->GetEnemiesSpawner()->DisplayEnemies();
+		gameData->GetScore()->DisplayScore();
 		break;
 	case InfiniteScroller::DEATHMENU:
-		gameData->m_deathMenu->Display();
+		gameData->GetMenuDeath()->Display();
 		break;
 	default:
 		break;
