@@ -43,8 +43,7 @@ void CPlayer::UpdatePlayer(float deltaTime)
 		if (m_lastStateAnim2 != m_stateAnim2)
 		{
 			m_endLoopAnimation = false;
-			m_sprite2->SetAnimation(m_stateAnim2);
-			m_sprite2->SetAnimTime(0);
+			m_sprite2->SetAnimation(m_stateAnim2, true);
 			m_lastStateAnim2 = m_stateAnim2;
 		}
 

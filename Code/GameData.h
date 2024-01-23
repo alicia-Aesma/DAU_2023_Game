@@ -14,6 +14,7 @@ namespace InfiniteScroller
 	class CHpBar;
 	class CScore;
 	class CDeathMenu;
+	class SoundManager;
 
 	class GameData
 	{
@@ -32,7 +33,7 @@ namespace InfiniteScroller
 		CDeathMenu* GetMenuDeath() { return m_deathMenu; };
 		bool GetPause() { return m_isPause; };
 		void SetPause(bool pause) { m_isPause = pause; }
-		int frame{ 0 };
+		SoundManager* GetSoundManager() { return m_soundManager; };
 
 	private:
 		CBackground* m_background{ nullptr };
@@ -44,6 +45,7 @@ namespace InfiniteScroller
 		CScore* m_score;
 		CDeathMenu* m_deathMenu{ nullptr };
 		bool m_isPause{ true };
+		SoundManager* m_soundManager{ nullptr };
 	};
 }
 

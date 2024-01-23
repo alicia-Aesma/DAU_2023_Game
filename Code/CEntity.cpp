@@ -62,8 +62,7 @@ void CEntity::UpdateEntity(float deltaTime)
 		if (m_lastStateAnim != m_stateAnim)
 		{
 			m_endLoopAnimation = false;
-			m_sprite->SetAnimation(m_stateAnim);
-			m_sprite->SetAnimTime(0);
+			m_sprite->SetAnimation(m_stateAnim, true);
 			m_lastStateAnim = m_stateAnim;
 		}
 

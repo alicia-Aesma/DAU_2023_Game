@@ -18,7 +18,7 @@ namespace InfiniteScroller
 
 	private :
 		CSimpleSprite* m_arrowSprite{ nullptr };
-		const float m_referenceArrowSpeed{ -0.4f };
+		const float m_referenceArrowSpeed{ -0.5f };
 		float m_currentArrowSpeed{ m_referenceArrowSpeed };
 		int m_nbArrow{ 1 };
 		FDot m_arrowPosition;

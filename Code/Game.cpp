@@ -12,6 +12,7 @@
 #include "CScore.h"
 #include "CDeathMenu.h"
 #include "CHeart.h"
+#include "SoundManager.h"
 //------------------------------------------------------------------------
 #include <windows.h> 
 #include <math.h>  
@@ -41,7 +42,6 @@ void Init()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
-	gameData->frame++;
 	switch (gameData->GetState())
 	{
 	case InfiniteScroller::MENU:
@@ -62,7 +62,12 @@ void Update(float deltaTime)
 
 	gameData->GetBackground()->UpdateBackground(deltaTime);
 	gameData->GetPlayer()->UpdatePlayer(deltaTime);
-	
+	gameData->GetSoundManager()->UpdateMusic();
+
+	if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
+	{
+		App::PlaySound("..//Asset//Sound//Music//MUSIC_Game_Over.wav");
+	}
 
 }
 

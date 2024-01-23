@@ -8,6 +8,7 @@
 #include "CScore.h"
 #include "CDeathMenu.h"
 #include "CHeart.h"
+#include "SoundManager.h"
 
 using namespace InfiniteScroller;
 
@@ -26,6 +27,7 @@ void GameData::Init()
 	m_hpBar = new CHpBar();
 	m_score = new CScore();
 	m_deathMenu = new CDeathMenu();
+	m_soundManager = new SoundManager();
 }
 
 GameData::~GameData()
@@ -36,4 +38,5 @@ GameData::~GameData()
 	SAFE_DELETE(m_enemiesSpawner);
 	SAFE_DELETE(m_hpBar);
 	SAFE_DELETE(m_score);
+	SAFE_DELETE(m_soundManager);
 }

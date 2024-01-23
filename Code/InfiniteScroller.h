@@ -28,7 +28,6 @@ namespace InfiniteScroller
 		MENU,
 		DEATHMENU,
 		INGAME,
-		PAUSE,
 	};
 
 	enum EEnemyType
