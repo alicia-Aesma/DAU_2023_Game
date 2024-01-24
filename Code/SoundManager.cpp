@@ -33,7 +33,7 @@ void SoundManager::UpdateMusic()
 			break;
 		case INGAME:
 			if (!App::IsSoundPlaying(m_musicInGameIntro))
-				App::PlaySound(m_musicInGameIntro);
+				App::PlaySound(m_musicInGameIntro, false );
 			break;
 		default:
 			break;
@@ -41,7 +41,7 @@ void SoundManager::UpdateMusic()
 	}
 	else if (GameData::GetInstance()->GetState() == INGAME)
 	{
-		if (!App::IsSoundPlaying(m_musicInGameIntro))
+		if (!App::IsSoundPlaying(m_musicInGameIntro) && !App::IsSoundPlaying(m_musicInGame))
 			App::PlaySound(m_musicInGame, true);
 	}
 

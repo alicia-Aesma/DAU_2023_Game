@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "CScore.h"
 #include "CPlayer.h"
+#include "SoundManager.h"
 
 #define ARROW_SPRITE_PATH "..//Asset//Sprites//Skeleton_Archer//Arrow.png"
 #define ARROW_POS_X 75
@@ -111,6 +112,8 @@ void CArcher::UpdateEnemy(float deltaTime)
 		{
 			// does damage to players
 			GameData::GetInstance()->GetPlayer()->HurtPlayer(m_attackDamage);
+			//play arrow sound
+			App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXArcherHit());
 		}
 	}
 }

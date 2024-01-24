@@ -3,11 +3,11 @@
 #include "../App/app.h"
 #include "InfiniteScroller.h"
 #include "GameData.h"
-#include <list>
 #include "CEnemiesSpawner.h"
+#include "SoundManager.h"
 
 
-#define INPUT_DELAY = 2.5f // minimum delay between each player input in ms
+#define INPUT_DELAY 2.0f // minimum delay between each player input in ms
 
 using namespace InfiniteScroller;
 
@@ -35,7 +35,8 @@ void CPlayer::UpdatePlayer(float deltaTime)
 {
 	if (m_isAlive)
 	{
-		Input(deltaTime);
+		if (GameData::GetInstance()->GetState() == INGAME)
+			Input(deltaTime);
 
 		UpdateEntity(deltaTime);
 
@@ -114,14 +115,23 @@ void CPlayer::HurtPlayer(int damage)
 			//play death animation
 			m_stateAnim = DEAD;
 			m_stateAnim2 = DEAD;
+			//play death sound
+			App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXPlayerDeath());
 		}
 		else
 		{
 			//play damage animation
 			m_stateAnim = HURT;
 			m_stateAnim2 = HURT;
+			//play hurt sound
+			App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXPlayerHurt());
+
+
 		}
 	}
+	else
+		//play parry sound
+		App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXPlayerParry());
 
 }
 
@@ -134,9 +144,9 @@ void CPlayer::Input(float deltaTime)
 {
 	m_inputDelay += deltaTime / 100.0f;
 
-	if (m_inputDelay >= 5.0f)
+	if (m_inputDelay >= INPUT_DELAY)
 	{
-		if (App::IsKeyPressed('A') && m_stateAnim != ACTION && m_stateAnim2 !=ACTION)//input for exchange position of the two player characters
+		if (App::IsKeyPressed('A') && m_stateAnim != ACTION && m_stateAnim2 != ACTION)//input for exchange position of the two player characters
 		{
 			FDot pos1;
 			FDot pos2;
@@ -166,6 +176,8 @@ void CPlayer::Input(float deltaTime)
 			else
 			{
 				m_stateAnim2 = ACTION; // Attack
+				//play hit sound
+				App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXPlayerHit());
 			}
 			//reset input delay
 			m_inputDelay = 0.0f;
@@ -175,6 +187,8 @@ void CPlayer::Input(float deltaTime)
 
 void CPlayer::HpGain(float hp)
 {
+	//play heal sound
+	App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXPlayerHeal());
 	m_hp += hp;
 	if (m_hp > m_maxHp)
 		m_hp = m_maxHp;

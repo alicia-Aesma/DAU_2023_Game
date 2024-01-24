@@ -64,11 +64,6 @@ void Update(float deltaTime)
 	gameData->GetPlayer()->UpdatePlayer(deltaTime);
 	gameData->GetSoundManager()->UpdateMusic();
 
-	if (App::GetController().CheckButton(XINPUT_GAMEPAD_B, true))
-	{
-		App::PlaySound("..//Asset//Sound//Music//MUSIC_Game_Over.wav");
-	}
-
 }
 
 //------------------------------------------------------------------------

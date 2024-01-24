@@ -7,6 +7,8 @@
 #include "CScore.h"
 #include "CEnemiesSpawner.h"
 #include "CHeart.h"
+#include "SoundManager.h"
+#include "../App/app.h"
 
 void ChangeGameStatetoPlay()
 {
@@ -15,6 +17,9 @@ void ChangeGameStatetoPlay()
 	gameData->SetPause(false);
 	gameData->GetPlayer()->SetStateAnime(InfiniteScroller::RUN);
 	gameData->GetPlayer()->SetStateAnime2(InfiniteScroller::RUN);
+
+	//play click sound
+	App::PlaySound(gameData->GetSoundManager()->GetSFXButtonOnClick());
 }
 
 void QuitGame()
@@ -30,4 +35,7 @@ void OpenMenu()
 	InfiniteScroller::GameData::GetInstance()->GetPlayer()->SetStateAnime(InfiniteScroller::IDLE);
 	InfiniteScroller::GameData::GetInstance()->GetPlayer()->SetStateAnime2(InfiniteScroller::IDLE);
 	InfiniteScroller::GameData::GetInstance()->GetPlayer()->ResetHp();
+
+	//play click sound
+	App::PlaySound(InfiniteScroller::GameData::GetInstance()->GetSoundManager()->GetSFXButtonOnClick());
 }

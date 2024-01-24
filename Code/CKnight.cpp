@@ -4,6 +4,7 @@
 #include "CPlayer.h"
 #include "../App/app.h"
 #include "CScore.h"
+#include "SoundManager.h"
 
 #define SCORE_WHEN_KILL 10
 
@@ -32,6 +33,8 @@ void InfiniteScroller::CKnight::UpdateEnemy(float deltaTime)
 		if (distance >= 0 && distance <= m_sprite->GetWidth() / 8.0f && m_stateAnim != DEAD)
 		{
 			m_stateAnim = ACTION;
+			//play attack sound
+			App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXKnightHit());
 		}
 
 
@@ -65,6 +68,7 @@ void InfiniteScroller::CKnight::UpdateEnemy(float deltaTime)
 				{
 					m_isAlive = false;
 					GameData::GetInstance()->GetScore()->AddValueScore(SCORE_WHEN_KILL);
+
 				}
 			}
 

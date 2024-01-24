@@ -7,6 +7,7 @@
 #include "CEnemiesSpawner.h"
 #include "CScore.h"
 #include "CHeart.h"
+#include "SoundManager.h"
 
 using namespace InfiniteScroller;
 
@@ -74,7 +75,7 @@ void CEnemy::HurtEnemy(int damage)
 	const float distance = abs(m_position.x - posPlayer.x);
 
 	//if player is close enough to enemy, attacks him, distanec <= quarter size of sprite
-	if (distance <= m_sprite->GetWidth() / 4.0f) 
+	if (distance <= m_sprite->GetWidth() / 4.0f)
 	{
 		m_hp -= damage;
 
@@ -85,6 +86,18 @@ void CEnemy::HurtEnemy(int damage)
 			//test if enemy drops life when he dies death
 			if ((float)(rand()) / (float)(RAND_MAX) <= m_dropChance)
 				Loot();
+			//play sounds
+			if (m_enemyType == ARCHER)
+			{
+				App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXArcherDeath());
+			}
+			else
+			{
+				App::PlaySound(GameData::GetInstance()->GetSoundManager()->GetSFXKnightDeath());
+				//play attack sound
+				App::StopSound(GameData::GetInstance()->GetSoundManager()->GetSFXKnightHit());
+			}
+
 		}
 	}
 }

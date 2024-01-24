@@ -27,6 +27,7 @@ namespace InfiniteScroller
 		const char* GetSFXPlayerHeal() { return m_playerHeal; };
 		const char* GetSFXPlayerHit() { return m_playerHit; };
 		const char* GetSFXPlayerParry() { return m_playerParry; };
+		const char* GetSFXPlayerHurt() { return m_playerHurt; };
 
 	private :
 		const char* m_musicGameOver{ "..//Asset//Sound//Music//MUSIC_Game_Over.wav" };
@@ -43,6 +44,8 @@ namespace InfiniteScroller
 		const char* m_playerHeal{ "..//Asset//Sound//SFX//SFX_PLAYER_Heal.wav" };
 		const char* m_playerHit{ "..//Asset//Sound//SFX//SFX_PLAYER_Hit.wav" };
 		const char* m_playerParry{ "..//Asset//Sound//SFX//SFX_PLAYER_Parry.wav" };
+		const char* m_playerHurt{ "..//Asset//Sound//SFX//SFX_PLAYER_Hurt.wav" };
+		
 
 		EGameState m_lastState;
 
