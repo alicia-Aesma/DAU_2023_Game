@@ -87,6 +87,7 @@ void Render()
 		break;
 	case InfiniteScroller::DEATHMENU:
 		gameData->GetMenuDeath()->Display();
+		gameData->GetScore()->DisplayScore();
 		break;
 	default:
 		break;
